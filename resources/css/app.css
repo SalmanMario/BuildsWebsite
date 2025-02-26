@@ -1,3 +1,139 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html,body{
+    background: radial-gradient(circle, rgba(51,47,47,1) 0%, rgba(17,16,16,1) 80%, rgba(0,0,0,1) 100%);
+    display: grid;
+    grid-template-rows: 1fr auto;
+}
+
+h1 {
+    font-family: Inter, sans-serif;
+    font-weight: 700;
+    font-size: 3rem;
+    color: #f7fafc;
+}
+
+p {
+    font-family: Roboto, sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+input {
+    font-family: Rubik, sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.footer{
+    font-family: Rubik, sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+/* Login View */
+.login-image{
+    object-fit: cover;
+    height: 550px;
+    width: auto;
+}
+
+.login-sheet{
+    background-color: #212121;
+}
+
+.login-field{
+    color: #f7fafc;
+}
+
+/* Card Dashboard*/
+.card-dashboard-title{
+    font-size: 2rem;
+    font-family: Inter, sans-serif;
+    font-weight: 700;
+}
+
+.card-dashboard-text{
+    font-family: Rubik, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+}
+
+.card-dashboard-logo {
+    height: 15rem;
+}
+
+.card-dashboard{
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.card-dashboard:hover{
+    transform: scale(1.1);
+}
+
+/* Font styles*/
+@font-face {
+    font-family: 'Roboto';
+    src: url("../../src/assets/fonts/Roboto/Roboto-Bold.woff") format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url("../../src/assets/fonts/Roboto/Roboto-Regular.woff") format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url("../../src/assets/fonts/Roboto/Roboto-Medium.woff") format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url("../../src/assets/fonts/Inter/Inter-Medium.woff") format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url("../../src/assets/fonts/Inter/Inter-Regular.woff") format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url("../../src/assets/fonts/Inter/Inter-Bold.woff") format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Rubik';
+    src: url("../../src/assets/fonts/Rubik/Rubik-Bold.woff") format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Rubik';
+    src: url("../../src/assets/fonts/Rubik/Rubik-Regular.woff") format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Rubik';
+    src: url("../../src/assets/fonts/Rubik/Rubik-Medium.woff") format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
