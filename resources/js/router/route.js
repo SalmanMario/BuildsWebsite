@@ -9,7 +9,7 @@ const routes = [
         children: [
             {
                 name: "dashboard",
-                path: "",
+                path: "dashboard",
                 component: Dashboard,
                 meta: {
                     pageTitle: "Dashboard",
@@ -24,7 +24,24 @@ const routes = [
                     pageTitle: "Login",
                     requiresGuest: true
                 }
-            }]
+            }, {
+                path: "path-of-exile",
+                name: "path-of-exile",
+                component: () => import("../pages/admin/path-of-exile/PathOfExileLayout.vue"),
+                children: [
+                    {
+                        path: "",
+                        name: "path-of-exile.index",
+                        component: () => import("../pages/admin/path-of-exile/ViewIndex.vue"),
+                    },
+                    {
+                        path: "leagues",
+                        name: "path-of-exile.leagues",
+                        component: () => import("../pages/admin/path-of-exile/leagues/ViewIndex.vue")
+                    }
+                ]
+            }
+        ],
     }
 ];
 
