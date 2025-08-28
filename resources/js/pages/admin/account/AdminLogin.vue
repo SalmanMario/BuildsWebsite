@@ -23,47 +23,26 @@ const submitForm = (() => {
 </script>
 
 <template>
-    <v-form method="POST" @submit.prevent="submitForm">
-        <v-container class="d-flex justify-center align-center" style="max-width: 1200px; width: 100%; min-height: 100vh;">
-            <v-sheet elevation="10" color="grey-darken-4" class="p-10 rounded-xl" style="width: 100%;">
-                <h1 class="mb-5 text-center">Builds Codex</h1>
-                <v-row justify="center" align="center">
-                    <v-col cols="12" sm="12" md="6">
-                        <v-img class="login-image" src="/images/login_page.jpg"></v-img>
-                    </v-col>
-                    <v-col cols="12" sm="12" md="6" class="d-flex flex-column align-center">
-                        <h1 class="mb-5 text-center">Login</h1>
-                        <v-text-field
-                            class="login-field mb-5"
-                            v-model="account.email"
-                            type="email"
-                            placeholder="Email"
-                            variant="outlined"
-                            style="max-width: 350px; width: 100%;"
-                            required
-                        ></v-text-field>
-                        <v-text-field
-                            class="login-field mb-5"
-                            v-model="account.password"
-                            type="password"
-                            placeholder="Password"
-                            variant="outlined"
-                            style="max-width: 350px; width: 100%;"
-                            required
-                        ></v-text-field>
-                        <div class="d-flex justify-center">
-                            <v-btn class="login-btn" color="#424242" size="large" type="submit">Login</v-btn>
-                        </div>
-                    </v-col>
-                </v-row>
-            </v-sheet>
-        </v-container>
-    </v-form>
+    <form method="POST" @submit.prevent="submitForm"
+          class="min-h-dvh flex items-center justify-center p-4">
+        <div class="px-10 py-10 bg-neutral-800">
+            <div class="grid grid-cols-1 md:grid-cols-2 max-w-4xl w-full rounded-2xl shadow-xl overflow-hidden">
+                <div class="relative">
+                    <img src="/public/images/login_page.jpg" alt="Login"
+                         class="w-full h-64 md:h-full object-cover">
+                </div>
+                <div class="p-8 md:p-12 ">
+                    <h1 class="text-center font-bold mb-6">Login</h1>
+                    <input type="email" placeholder="Email"
+                           class="input input-xl w-full mb-4" v-model="account.email" required>
+                    <input type="password" placeholder="Password"
+                           class="input input-xl w-full mb-6" v-model="account.password" required>
+                    <button class="btn btn-primary w-full">Login</button>
+                </div>
+            </div>
+        </div>
+    </form>
 </template>
 
 <style scoped>
-.login-btn {
-    font-family: Rubik, sans-serif;
-    font-weight: 500;
-}
 </style>

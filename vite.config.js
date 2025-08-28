@@ -14,7 +14,12 @@ export default defineConfig({
     resolve: {
         alias: {
             "~bootstrap": path.resolve(__dirname, "node_modules/bootstrap"),
-            vuePlugin: "vue/dist/vue.esm-bundler.js",
+            'vue': 'vue/dist/vue.esm-bundler.js',
         }
-    }
+    },
+    esbuild: {
+        supported: {
+            'top-level-await': true
+        },
+    },
 });

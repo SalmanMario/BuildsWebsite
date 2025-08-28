@@ -19,5 +19,5 @@ onMounted(async () => {
             <RouterView/>
         </div>
     </div>
-    <FooterComponent class="mt-8"></FooterComponent>
+    <FooterComponent></FooterComponent>
 </template>
