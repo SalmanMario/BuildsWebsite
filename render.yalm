@@ -9,8 +9,13 @@ services:
     name: builds-codex
     env: php
     plan: free
-    region: frankfurt  # Sau altă regiune apropiată
+    region: frankfurt
     buildCommand: |
+      # Instalează Node.js
+      curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+      apt-get install -y nodejs
+
+      # Build commands
       composer install --no-dev --optimize-autoloader
       php artisan key:generate --force
       npm install
@@ -27,5 +32,5 @@ services:
       - key: LOG_CHANNEL
         value: stderr
       - fromDatabase:
-          name: laravel_db
+          name: builds-codex  # Corectat să se potrivească cu numele de mai sus
           property: connectionString
