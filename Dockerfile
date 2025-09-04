@@ -8,9 +8,11 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev \
     zip \
-    unzip \
-    nodejs \
-    npm
+    unzip
+
+# Instalează Node.js separat
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+RUN apt-get install -y nodejs npm
 
 # Curăță cache-ul
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -24,16 +26,13 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Setează directorul de lucru
 WORKDIR /var/www/html
 
-# Copiază DOAR fișierele necesare pentru instalarea dependințelor
-COPY composer.json composer.lock* package.json package-lock* ./
-
-# Instalează dependințele PHP (dacă există composer.lock)
-RUN if [ -f composer.lock ]; then composer install --no-dev --optimize-autoloader; else composer install --no-dev --optimize-autoloader --no-scripts; fi
-
-# Copiază restul fișierelor
+# Copiază toate fișierele
 COPY . .
 
-# Instalează dependințele Node.js și build
+# Instalează dependințele PHP (simplificat)
+RUN composer install --no-dev --optimize-autoloader --no-scripts
+
+# Instalează dependințele Node.js
 RUN npm install
 RUN npm run build
 
@@ -41,13 +40,9 @@ RUN npm run build
 RUN chown -R www-data:www-data storage bootstrap/cache
 RUN chmod -R 775 storage bootstrap/cache
 
-# Generează cheia aplicației (dacă nu există)
-RUN if [ ! -f .env ]; then \
-        cp .env.example .env && \
-        php artisan key:generate --force; \
-    else \
-        php artisan key:generate --force; \
-    fi
+# Generează cheia aplicației
+RUN cp .env.example .env
+RUN php artisan key:generate --force
 
 # Configurează Apache
 RUN a2enmod rewrite
