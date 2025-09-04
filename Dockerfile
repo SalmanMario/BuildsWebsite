@@ -24,25 +24,42 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Setează directorul de lucru
 WORKDIR /var/www/html
 
-# Copiază fișierele proiectului
-COPY . .
+# Copiază DOAR fișierele necesare pentru instalarea dependințelor
+COPY composer.json composer.lock* package.json package-lock* ./
 
-# Instalează dependințele PHP
-RUN composer install --no-dev --optimize-autoloader
+# Instalează dependințele PHP (dacă există composer.lock)
+RUN if [ -f composer.lock ]; then composer install --no-dev --optimize-autoloader; else composer install --no-dev --optimize-autoloader --no-scripts; fi
+
+# Copiază restul fișierelor
+COPY . .
 
 # Instalează dependințele Node.js și build
 RUN npm install
 RUN npm run build
 
 # Setează permisiunile
-RUN chown -R www-data:www-data /var/www/html/storage
-RUN chmod -R 775 /var/www/html/storage
+RUN chown -R www-data:www-data storage bootstrap/cache
+RUN chmod -R 775 storage bootstrap/cache
 
-# Generează cheia aplicației
-RUN php artisan key:generate --force
+# Generează cheia aplicației (dacă nu există)
+RUN if [ ! -f .env ]; then \
+        cp .env.example .env && \
+        php artisan key:generate --force; \
+    else \
+        php artisan key:generate --force; \
+    fi
 
 # Configurează Apache
 RUN a2enmod rewrite
-COPY .docker/apache.conf /etc/apache2/sites-available/000-default.conf
+RUN echo "<VirtualHost *:80>\n\
+    DocumentRoot /var/www/html/public\n\
+    <Directory /var/www/html/public>\n\
+        AllowOverride All\n\
+        Require all granted\n\
+    </Directory>\n\
+</VirtualHost>" > /etc/apache2/sites-available/000-default.conf
 
 EXPOSE 80
+
+# Pornește Apache
+CMD ["apache2-foreground"]
