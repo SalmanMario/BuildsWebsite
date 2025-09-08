@@ -19,3 +19,4 @@ services:
       - fromDatabase:
           name: builds-codex
           property: connectionString
+    postDeployCommand: ./post-deploy.sh
